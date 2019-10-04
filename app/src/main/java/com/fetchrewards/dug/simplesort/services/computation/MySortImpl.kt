@@ -7,7 +7,7 @@ class MySortImpl : MySort {
     // region MySort
 
     override fun sort(people: List<Person>): List<Person> =
-        people.sortedWith(compareBy({ it.age }, { it.name }))
+        people.filter { !it.name.isNullOrBlank() }.sortedWith(compareBy({ it.age }, { it.name }))
 
     // endregion MySort
 }

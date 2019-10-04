@@ -13,6 +13,9 @@ class MySortImplTest {
     private val unsortedGroup = listOf(
         Person(12, "Elder Son Jones"),
         Person(80, "Grandma Jones"),
+        Person( 0, null),
+        Person( 0, " "),
+        Person( 0, ""),
         Person(10, "Daughter Jones"),
         Person(80, "Grandfather Jones")
     )
@@ -31,7 +34,7 @@ class MySortImplTest {
     }
 
     @Test
-    fun sort_verify() {
+    fun sort_normal_verify() {
         // Arrange
         // Act
         val items = sort.sort(unsortedGroup)

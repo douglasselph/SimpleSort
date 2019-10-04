@@ -35,6 +35,8 @@ class MainController(
 
     // region Controller
 
+    var invalidateOptionsMenu: () -> Unit = {}
+
     fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         return viewMvc.onPrepareOptionsMenu(menu)
     }
@@ -79,12 +81,13 @@ class MainController(
     override fun onBindItem(itemViewMvc: MainItemViewMvc, position: Int) {
         val person = people[position]
         itemViewMvc.age = person.age.toString()
-        itemViewMvc.name = person.name
+        itemViewMvc.name = person.name ?: wrapper.getString(R.string.null_name)
     }
 
     override fun onToggleSort() {
         isSorting = !isSorting
         acquire()
+        invalidateOptionsMenu()
     }
 
     override val sortMenuTitle: String

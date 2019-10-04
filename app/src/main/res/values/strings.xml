@@ -4,4 +4,6 @@
     <string name="action_sort">Sort</string>
     <string name="action_unsort">Unsort</string>
 
+    <string name="null_name">Null Name</string>
+
 </resources>

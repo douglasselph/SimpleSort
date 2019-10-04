@@ -1,0 +1,18 @@
+
+FETCH REWARDS NAT
+-----------------
+
+Instructions:
+
+	Create a basic app that will take in a given list of objects and then group them all by a field 
+	then sort each group by another field. Filter out any objects where key data is null.
+
+	For example, given a list of items, separate them by item.listId then sort them by item.name, 
+	removing any items with a blank or null name.
+
+Interpretation:
+
+	Since it was to be an APP, I decided to do it in proper MVC style allowing for future expansion.
+
+Author: Douglas Selph
+Date: Oct 4, 2019

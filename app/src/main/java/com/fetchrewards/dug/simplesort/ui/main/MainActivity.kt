@@ -25,6 +25,9 @@ class MainActivity : AppCompatActivity() {
         // Important: keep MVC 'View' distinct from Activity
         viewMvc = factory.allocMainViewMvc(findViewById(R.id.top))
         controller = factory.allocMainController(viewMvc)
+        controller.invalidateOptionsMenu = {
+            invalidateOptionsMenu()
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -48,4 +51,5 @@ class MainActivity : AppCompatActivity() {
             super.onOptionsItemSelected(item)
         }
     }
+
 }

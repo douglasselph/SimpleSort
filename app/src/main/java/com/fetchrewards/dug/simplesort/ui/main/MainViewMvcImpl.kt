@@ -1,5 +1,7 @@
 package com.fetchrewards.dug.simplesort.ui.main
 
+import android.view.Menu
+import android.view.MenuItem
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +36,20 @@ class MainViewMvcImpl(
 
     override fun notifyDataSetChanged() {
         adapter.notifyDataSetChanged()
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (listeners.isNotEmpty()) {
+            menu?.findItem(R.id.action_sort)?.let { item ->
+                item.title = listeners.first().sortMenuTitle
+            }
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        listeners.forEach { listener -> listener.onToggleSort() }
+        return true
     }
 
     // endregion MainViewMvc

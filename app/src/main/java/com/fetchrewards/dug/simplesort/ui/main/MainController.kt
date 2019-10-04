@@ -1,27 +1,45 @@
 package com.fetchrewards.dug.simplesort.ui.main
 
+import android.view.Menu
+import android.view.MenuItem
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
+import com.fetchrewards.dug.simplesort.R
 import com.fetchrewards.dug.simplesort.model.person.Person
 import com.fetchrewards.dug.simplesort.services.computation.MySort
 import com.fetchrewards.dug.simplesort.services.people.FetchPeople
 import com.fetchrewards.dug.simplesort.ui.common.wrapper.Binder
+import com.fetchrewards.dug.simplesort.ui.common.wrapper.StringWrapper
 import com.fetchrewards.dug.simplesort.ui.main.item.MainItemViewMvc
 
 class MainController(
-    binder: Binder,
     private val viewMvc: MainViewMvc,
+    binder: Binder,
+    private val wrapper: StringWrapper,
     private val fetchPeople: FetchPeople,
     private val sorter: MySort
 ) : LifecycleObserver,
     MainViewMvc.Listener {
 
     private var people = listOf<Person>()
+    private var isSorting = true
 
     init {
         binder.bindObserver(this)
     }
+
+    // region Controller
+
+    fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        return viewMvc.onPrepareOptionsMenu(menu)
+    }
+
+    fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return viewMvc.onOptionsItemSelected(item)
+    }
+
+    // endregion Controller
 
     // region Lifecycle
 
@@ -40,7 +58,11 @@ class MainController(
 
     private fun acquire() {
         fetchPeople.fetchPeople { people ->
-            this.people = sorter.sort(people)
+            this.people = if (isSorting) {
+                sorter.sort(people)
+            } else {
+                people
+            }
             viewMvc.notifyDataSetChanged()
         }
     }
@@ -55,6 +77,14 @@ class MainController(
         itemViewMvc.age = person.age.toString()
         itemViewMvc.name = person.name
     }
+
+    override fun onToggleSort() {
+        isSorting = !isSorting
+        acquire()
+    }
+
+    override val sortMenuTitle: String
+        get() = if (isSorting) wrapper.getString(R.string.action_unsort) else wrapper.getString(R.string.action_sort)
 
     // endregion MainViewMvc.Listener
 }

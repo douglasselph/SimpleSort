@@ -8,18 +8,23 @@ import com.fetchrewards.dug.simplesort.services.computation.MySortImpl
 import com.fetchrewards.dug.simplesort.services.people.FetchPeople
 import com.fetchrewards.dug.simplesort.services.people.FetchPeopleImpl
 import com.fetchrewards.dug.simplesort.ui.common.wrapper.Binder
+import com.fetchrewards.dug.simplesort.ui.common.wrapper.StringWrapper
 import com.fetchrewards.dug.simplesort.ui.main.MainController
 import com.fetchrewards.dug.simplesort.ui.main.MainViewMvc
 import com.fetchrewards.dug.simplesort.ui.main.MainViewMvcImpl
 import com.fetchrewards.dug.simplesort.ui.main.item.MainItemViewMvc
 import com.fetchrewards.dug.simplesort.ui.main.item.MainItemViewMvcImpl
 
+// Note: as this app develops this class would expand out to full dependency injection
 class Factory(
     act: AppCompatActivity,
     private val inflater: LayoutInflater
 ) {
 
     private val binder = Binder(act)
+    private val stringWrapper = StringWrapper(act)
+
+    // region public alloc
 
     fun allocMainItemViewMvc(parent: ViewGroup?): MainItemViewMvc {
         return MainItemViewMvcImpl(inflater, parent)
@@ -31,18 +36,21 @@ class Factory(
 
     fun allocMainController(viewMvc: MainViewMvc): MainController {
         return MainController(
-            binder,
             viewMvc,
+            binder,
+            stringWrapper,
             allocFetchPeople(),
             allocSort()
         )
     }
 
-    fun allocFetchPeople(): FetchPeople {
+    // endregion public alloc
+
+    private fun allocFetchPeople(): FetchPeople {
         return FetchPeopleImpl()
     }
 
-    fun allocSort(): MySort {
+    private fun allocSort(): MySort {
         return MySortImpl()
     }
 

@@ -11,7 +11,6 @@ import com.fetchrewards.dug.simplesort.app.factory.Factory
 import com.fetchrewards.dug.simplesort.ui.common.mvc.ObservableViewMvcImpl
 import com.fetchrewards.dug.simplesort.ui.main.item.MainItemViewMvc
 
-
 class MainViewMvcImpl(
     factory: Factory,
     override val rootView: ViewGroup

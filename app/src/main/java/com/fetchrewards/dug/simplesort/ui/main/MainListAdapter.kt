@@ -5,6 +5,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.fetchrewards.dug.simplesort.app.factory.Factory
 import com.fetchrewards.dug.simplesort.ui.main.item.MainItemViewMvc
 
+/**
+ * The listener allows all active logic to be kept within the controller.
+ */
 class MainListAdapter(
     private val factory: Factory,
     private val listener: Listener

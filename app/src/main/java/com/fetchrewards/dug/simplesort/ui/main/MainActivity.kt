@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         factory = Factory(this, layoutInflater)
+        // Important: keep MVC 'View' distinct from Activity
         viewMvc = factory.allocMainViewMvc(findViewById(R.id.top))
         controller = factory.allocMainController(viewMvc)
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.

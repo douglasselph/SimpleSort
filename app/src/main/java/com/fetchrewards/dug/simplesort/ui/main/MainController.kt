@@ -13,6 +13,10 @@ import com.fetchrewards.dug.simplesort.ui.common.wrapper.Binder
 import com.fetchrewards.dug.simplesort.ui.common.wrapper.StringWrapper
 import com.fetchrewards.dug.simplesort.ui.main.item.MainItemViewMvc
 
+/**
+ * All logic is centered into this file so that a unit test from this can be easily constructed at a later point
+ * when there is something more interesting to do.
+ */
 class MainController(
     private val viewMvc: MainViewMvc,
     binder: Binder,
